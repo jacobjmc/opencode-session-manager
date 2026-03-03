@@ -11,19 +11,18 @@ It adds four tools:
 
 ## Why this is useful
 
-This plugin is most helpful when your current session is full and you need to keep moving.
+This plugin is most helpful when:
+
+- your current session's context window is full and want to continue in a new session without losing context
+- you remember discussing something but forgot the details
+- you want OpenCode to recall a decision from a past session
+- you need to find where a bug, fix, or plan was originally discussed
 
 Example workflow:
 
 1. Start a new session.
 2. Ask OpenCode: "Review our last session and continue from where we left off."
 3. It can find and read the previous session, then pick up the work.
-
-It is also useful when:
-
-- you remember discussing something but forgot the details
-- you want OpenCode to recall a decision from a past session
-- you need to find where a bug, fix, or plan was originally discussed
 
 In practice, it feels like a lightweight memory system built on your own local session history.
 
@@ -46,7 +45,7 @@ Optional agent hint: if your agent often misses prior-session context, add this 
 
 ### From npm (recommended)
 
-Add this to `~/.config/opencode/opencode.jsonc` (or project `opencode.json`):
+Add this to `~/.config/opencode/opencode.jsonc` or `~/.config/opencode/opencode.json` (or project `opencode.json`):
 
 ```jsonc
 {

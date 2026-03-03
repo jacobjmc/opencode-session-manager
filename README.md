@@ -38,6 +38,9 @@ Useful options:
 
 - `all_scopes: true` searches across all workspaces
 - `from_date` / `to_date` support date-only input (`YYYY-MM-DD`) and treat full days as inclusive
+- timestamps are rendered in the runtime's local timezone (no config required for local usage)
+
+Optional agent hint: if your agent often misses prior-session context, add this to your `AGENTS.md`: `When asked about prior work/decisions, use session tools first: session_list -> (optional all_scopes/date filters) -> session_info/session_read -> session_search.`
 
 ## Install
 

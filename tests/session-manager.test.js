@@ -1,6 +1,17 @@
 import { describe, expect, test } from 'bun:test';
 import { SessionManager } from '../src/session-manager';
 
+const formatLocal = (timestampMs) => {
+  const date = new Date(timestampMs);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+
 const makeClient = ({
   defaultSessions = [],
   scopedSessions = {},
@@ -243,5 +254,27 @@ describe('SessionManager', () => {
 
     expect(output).toContain('in-range');
     expect(output).not.toContain('out-range');
+  });
+
+  test('session_read formats timestamps in local runtime time', async () => {
+    const createdAt = Date.UTC(2026, 2, 3, 23, 30, 45);
+    const { client } = makeClient({
+      messagesBySession: {
+        'local-time-session': [
+          {
+            info: { id: 'msg-1', role: 'user', time: { created: createdAt } },
+            parts: [{ type: 'text', text: 'hello' }],
+          },
+        ],
+      },
+    });
+
+    const plugin = await SessionManager({ client, directory: '/repo' });
+    const output = await plugin.tool.session_read.execute(
+      { session_id: 'local-time-session' },
+      { directory: '/repo' }
+    );
+
+    expect(output).toContain(`@ ${formatLocal(createdAt)}`);
   });
 });

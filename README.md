@@ -1,6 +1,6 @@
 # opencode-session-manager
 
-OpenCode plugin that turns your past sessions into something you can actually reuse.
+OpenCode plugin that lets your agent read, search, and resume past sessions.
 
 It adds four tools:
 
